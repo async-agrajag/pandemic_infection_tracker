@@ -94,6 +94,14 @@ function selectColor(color) {
 };
 
 function addCity(var_id, var_name, var_modifier) {
+    if (var_name.length == 0) {
+        window.alert('You must set the text in the below City Name text field.');
+    } else {
+        addCityConfirmed(var_id, var_name, var_modifier);
+    }
+}
+
+function addCityConfirmed(var_id, var_name, var_modifier) {
     var next_seq_id = city_cards.seq_id += 1;
     city_cards[var_id] = city_cards[var_id] || [];
     city_cards[var_id].push({name: var_name, color: city_cards.selected_color, modifier: var_modifier, seq_id: next_seq_id, disabled: false});
