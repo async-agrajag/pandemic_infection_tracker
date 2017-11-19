@@ -1,0 +1,1 @@
+var city_cards = {"seq_id":44,"card_table_master":[],"card_table_0":[],"card_table_1":[],"card_table_2":[],"card_table_3":[],"card_table_4":[],"card_table_5":[],"card_table_6":[],"card_table_7":[],"card_table_forecast":[],"current_epoch":0,"forecasting":false,"forecast_count":0,"forecast_list_set":false,"selected_color":"Blue"};
