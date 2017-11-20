@@ -19,6 +19,8 @@ function newGameConfirmed() {
         var city_card = city_cards.card_table_master[index];
         city_cards.card_table_master[index] = Object.assign(city_card, {disabled: false});
     }
+    city_cards.card_table_master = sortCityList(city_cards.card_table_master);
+
     
     //Set variables to base state
     city_cards.current_epoch = 0;
@@ -359,7 +361,7 @@ function drawScreen() {
     //Set css classes for epidemic and epidemic list divs based on width;
     $('#epoch_list').attr('class', 'epoch_list width_' + epoch_list_width);
     for (var i = 0; i < 8; i++) {
-        $('#epoch_card_list_'+i).attr('class', 'epoch_card_list one_part_of_' + epoch_list_width)
+        $('#epoch_card_list_'+i).attr('class', 'epoch_card_column one_part_of_' + epoch_list_width)
         if (i > city_cards.current_epoch) {
             $('#epoch_card_list_'+i).addClass('invisible');
         }

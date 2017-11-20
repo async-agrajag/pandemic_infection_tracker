@@ -17,7 +17,7 @@ td.card_name_yellow {
     border-bottom: 1px solid black;
     margin: 0;
     width: 35%;
-    color: yellow;
+    color: orange;
 }
 td.card_name_black {
     border-bottom: 1px solid black;
@@ -50,6 +50,7 @@ table.epoch_card_list {
     border-collapse: collapse;
     margin: 0;
     width: 100%;
+    overflow-y: auto;
 }
 table.forecast_card_list {
     border: 1px solid black;
@@ -81,12 +82,12 @@ div.card_list_master_wrapper {
     height: 100%;
     float: left;
 }
-div.card_list_master {
+div.card_column_master {
     margin: 0;
     width: 100%;
     height: 75%;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: hidden;
     background-color: #a0a0a0;
 }
 div.card_list_control {
@@ -137,13 +138,41 @@ div.forecast_list {
     float: right;
     background-color: #a0a0a0;
 }
-div.epoch_card_list {
+div.epoch_card_column {
     margin: 0;
     height: 100%;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: hidden;
     background-color: lightgrey;
     float: left;
+}
+div.epoch_card_identifier {
+    margin: 0;
+    height: 2.7%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background-color: lightgrey;
+}
+div.epoch_card_list {
+    margin: 0;
+    height: 97.3%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: lightgrey;
+}
+div.card_list_master {
+    margin: 0;
+    height: 96.5%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: grey;
+}
+div.forecast_card_list {
+    margin: 0;
+    height: 97.3%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: grey;
 }
 div.one_part_of_2 {
     width: 50%;

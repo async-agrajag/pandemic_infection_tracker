@@ -9,16 +9,20 @@
   <body>
     <div>
         <div class="card_list_master_wrapper">
-            <div id="card_list_master" class="card_list_master">
-                <table class="epoch_identifier">
-                    <tbody id="card_table_legend">
-                        <tr><td>Full Deck</td></tr>
-                    </tbody>
-                </table>
-                <table class="card_list_master">
-                    <tbody id="card_table_master">
-                    </tbody>
-                </table>
+            <div id="card_column_master" class="card_column_master">
+                <div class="epoch_identifier">
+                    <table class="epoch_identifier">
+                        <tbody id="card_table_legend">
+                            <tr><td>Full Deck</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card_list_master">
+                    <table class="card_list_master">
+                        <tbody id="card_table_master">
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div id="card_list_control" class="card_list_control">
                 <p></br></p>
@@ -33,107 +37,142 @@
             </div>
         </div>
         <div id="forecast_list" class="forecast_list" hidden="hidden">
-            <table id="forecast_identifier" class="epoch_identifier">
-                <tbody id="card_table_legend_forecast">
-                    <tr><td>Forecast</td></tr>
-                </tbody>
-            </table>
-            <table class="forecast_card_list">
-                <tbody id="card_table_forecast">
-                </tbody>
-            </table>
+            <div class="epoch_identifier">
+                <table id="forecast_identifier" class="epoch_identifier">
+                    <tbody id="card_table_legend_forecast">
+                        <tr><td>Forecast</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="forecast_card_list">
+                <table class="forecast_card_list">
+                    <tbody id="card_table_forecast">
+                    </tbody>
+                </table>
+            </div>
             <button id="stop_forecast" class="stop_forecast" onclick="stopForecasting()">Stop Forecasting</button>
         </div>
         <div id="epidemic_epochs" class="epidemic_epochs">
             <div id="epoch_list" class="epoch_list">
-            <div id="epoch_card_list_0" class="epoch_card_list">
+            <div id="epoch_card_list_0" class="epoch_card_column">
+                <div class="epoch_identifier">
                 <table id="epoch_identifier_0" class="active_epoch_identifier">
                     <tbody id="card_table_legend_0">
                         <tr><td>Pre-Epidemic</td><td>Infection Rate: 2</td></tr>
                     </tbody>
                 </table>
-                <table class="epoch_card_list">
-                    <tbody id="card_table_0">
-                    </tbody>
-                </table>
+                </div>
+                <div class="epoch_card_list">
+                    <table class="epoch_card_list">
+                        <tbody id="card_table_0">
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div id="epoch_card_list_1" class="epoch_card_list">
+            <div id="epoch_card_list_1" class="epoch_card_column">
+                <div class="epoch_identifier">
                 <table id="epoch_identifier_1"  class="epoch_identifier">
                     <tbody id="card_table_legend_1">
                         <tr><td>Epidemic 1</td><td>Infection Rate: 2</td></tr>
                     </tbody>
                 </table>
-                <table class="epoch_card_list">
-                    <tbody id="card_table_1">
-                    </tbody>
-                </table>
+                <div class="epoch_card_list">
+                    <table class="epoch_card_list">
+                        <tbody id="card_table_1">
+                        </tbody>
+                    </table>
+                </div>
+                </div>
             </div>
-            <div id="epoch_card_list_2" class="epoch_card_list">
+            <div id="epoch_card_list_2" class="epoch_card_column">
+                <div class="epoch_identifier">
                 <table id="epoch_identifier_2"  class="epoch_identifier">
                     <tbody id="card_table_legend_2">
                         <tr><td>Epidemic 2</td><td>Infection Rate: 2</td></tr>
                     </tbody>
                 </table>
-                <table class="epoch_card_list">
-                    <tbody id="card_table_2">
-                    </tbody>
-                </table>
+                </div>
+                <div class="epoch_card_list">
+                    <table class="epoch_card_list">
+                        <tbody id="card_table_2">
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div id="epoch_card_list_3" class="epoch_card_list">
+            <div id="epoch_card_list_3" class="epoch_card_column">
+                <div class="epoch_identifier">
                 <table id="epoch_identifier_3"  class="epoch_identifier">
                     <tbody id="card_table_legend_3">
                         <tr><td>Epidemic 3</td><td>Infection Rate: 3</td></tr>
                     </tbody>
                 </table>
-                <table class="epoch_card_list">
-                    <tbody id="card_table_3">
-                    </tbody>
-                </table>
+                </div>
+                <div class="epoch_card_list">
+                    <table class="epoch_card_list">
+                        <tbody id="card_table_3">
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div id="epoch_card_list_4" class="epoch_card_list">
+            <div id="epoch_card_list_4" class="epoch_card_column">
+                <div class="epoch_identifier">
                 <table id="epoch_identifier_4"  class="epoch_identifier">
                     <tbody id="card_table_legend_4">
                         <tr><td>Epidemic 4</td><td>Infection Rate: 3</td></tr>
                     </tbody>
                 </table>
-                <table class="epoch_card_list">
-                    <tbody id="card_table_4">
-                    </tbody>
-                </table>
+                </div>
+                <div class="epoch_card_list">
+                    <table class="epoch_card_list">
+                        <tbody id="card_table_4">
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div id="epoch_card_list_5" class="epoch_card_list">
+            <div id="epoch_card_list_5" class="epoch_card_column">
+                <div class="epoch_identifier">
                 <table id="epoch_identifier_5"  class="epoch_identifier">
                     <tbody id="card_table_legend_5">
                         <tr><td>Epidemic 5</td><td>Infection Rate: 4</td></tr>
                     </tbody>
                 </table>
-                <table class="epoch_card_list">
-                    <tbody id="card_table_5">
-                    </tbody>
-                </table>
+                </div>
+                <div class="epoch_card_list">
+                    <table class="epoch_card_list">
+                        <tbody id="card_table_5">
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div id="epoch_card_list_6" class="epoch_card_list">
+            <div id="epoch_card_list_6" class="epoch_card_column">
+                <div class="epoch_identifier">
                 <table id="epoch_identifier_6"  class="epoch_identifier">
                     <tbody id="card_table_legend_6">
                         <tr><td>Epidemic 6</td><td>Infection Rate: 4</td></tr>
                     </tbody>
                 </table>
-                <table class="epoch_card_list">
-                    <tbody id="card_table_6">
-                    </tbody>
-                </table>
+                </div>
+                <div class="epoch_card_list">
+                    <table class="epoch_card_list">
+                        <tbody id="card_table_6">
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div id="epoch_card_list_7" class="epoch_card_list">
+            <div id="epoch_card_list_7" class="epoch_card_column">
+                <div class="epoch_identifier">
                 <table id="epoch_identifier_7"  class="epoch_identifier">
                     <tbody id="card_table_legend_7">
                         <tr><td>Epidemic 7</td><td>Infection Rate: 5</td></tr>
                     </tbody>
                 </table>
-                <table class="epoch_card_list">
-                    <tbody id="card_table_7">
-                    </tbody>
-                </table>
-            </div>
+                </div>
+                <div class="epoch_card_list">
+                    <table class="epoch_card_list">
+                        <tbody id="card_table_7">
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
