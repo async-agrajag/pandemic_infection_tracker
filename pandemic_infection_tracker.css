@@ -1,103 +1,88 @@
-tr.disabled_city_card {
-    background-color: #606060;
+table {
+    border-collapse: collapse;
 }
-td.card_name_blue {
-    border-bottom: 1px solid black;
-    margin: 0;
-    width: 35%;
-    color: #2020d0;
+.drawn {
+    opacity: 0.5
 }
-td.card_name_red {
+.city_card {
     border-bottom: 1px solid black;
-    margin: 0;
-    width: 35%;
-    color: red;
 }
-td.card_name_yellow {
-    border-bottom: 1px solid black;
-    margin: 0;
-    width: 35%;
-    color: orange;
-}
-td.card_name_black {
-    border-bottom: 1px solid black;
-    margin: 0;
-    width: 35%;
+.blue {
     color: black;
+    background-color: dodgerblue;
 }
-td.card_modifier {
-    border-bottom: 1px solid black;
-    margin: 0;
-    width: 35%;
-    color: #20b020;
+.red {
+    color: black;
+    background-color: #C22222;
 }
-td.card_buttons {
-    border-bottom: 1px solid black;
-    margin: 0;
-    width: 30%;
+.yellow {
+    color: black;
+    background-color: #EFC700;
 }
-button.card_button {
+.black {
+    color: white;
+    background-color: #4F4F4F;
+}
+.card_text {
+    width: 53.8462%;
+}
+.card_modifier {
+    color: #2AC62A;
+}
+.card_buttons {
+    width: 46.1532%;
+}
+.card_button {
     width: 100%;
 }
-table.card_list_master {
-    border: 1px solid black;
-    border-collapse: collapse;
-    margin: 0;
+.card_list {
     width: 100%;
 }
-table.epoch_card_list {
-    border: 1px solid black;
-    border-collapse: collapse;
-    margin: 0;
-    width: 100%;
-    overflow-y: auto;
-}
-table.forecast_card_list {
-    border: 1px solid black;
-    border-collapse: collapse;
-    margin: 0;
-    width: 100%;
-}
-table.epoch_identifier {
-    border: 1px solid black;
-    border-collapse: collapse;
+.epoch_identifier {
     font-weight: bold;
-    margin: 0;
+    height: 5%;
     width: 100%;
+    text-align: center;
 }
-table.active_epoch_identifier {
-    border: 1px solid black;
-    border-collapse: collapse;
-    font-weight: bold;
-    margin: 0;
-    width: 100%;
+.active {
     background-color: green;
 }
-div.master {
-    margin: 0;
-}
-div.card_list_master_wrapper {
-    margin: 0;
-    width: 25%;
-    height: 100%;
-    float: left;
-}
-div.card_column_master {
-    margin: 0;
+.card_list_master {
     width: 100%;
-    height: 75%;
+    height: 70%;
     overflow-x: hidden;
+    overflow-y: auto;
+    background-color: grey;
+}
+.card_column_master {
+    width: 16.25%;
+    height: 100%;
     overflow-y: hidden;
     background-color: #a0a0a0;
+    float: left;
 }
-div.card_list_control {
-    margin: 0;
+.card_column_forecast {
+    width: 16.25%;
+    height: 100%;
+    overflow-x: hidden;
+    background-color: #a0a0a0;
+    float: right;
+}
+.card_column_epoch {
+    height: 100%;
+    border-left: 2px solid black;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background-color: lightgrey;
+    float: left;
+}
+#card_list_control {
+    padding: auto;
     width: 100%;
     height: 25%;
     overflow-x: hidden;
     overflow-y: auto;
     background-color: #c0c0c0;
-    line-height: 25%;
 }
 div.epidemic_epochs {
     margin: 0;
@@ -111,40 +96,25 @@ div.epoch_list {
     height: 100%;
 }
 div.width_2 {
-    width: 50vw;
+    width: 32.5vw;
 }
 div.width_3 {
-    width: 75vw;
+    width: 48.75vw;
 }
 div.width_4 {
-    width: 100vw;
+    width: 65vw;
 }
 div.width_5 {
-    width: 125vw;
+    width: 81.25vw;
 }
 div.width_6 {
-    width: 150vw;
+    width: 97.5vw;
 }
 div.width_7 {
-    width: 175vw;
+    width: 113.75vw;
 }
 div.width_8 {
-    width: 200vw;
-}
-div.forecast_list {
-    margin: 0;
-    width: 25%;
-    height: 100%;
-    float: right;
-    background-color: #a0a0a0;
-}
-div.epoch_card_column {
-    margin: 0;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    background-color: lightgrey;
-    float: left;
+    width: 130vw;
 }
 div.epoch_card_identifier {
     margin: 0;
@@ -159,13 +129,6 @@ div.epoch_card_list {
     overflow-x: hidden;
     overflow-y: auto;
     background-color: lightgrey;
-}
-div.card_list_master {
-    margin: 0;
-    height: 96.5%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background-color: grey;
 }
 div.forecast_card_list {
     margin: 0;
@@ -201,12 +164,12 @@ div.invisible {
 button.stop_forecast {
     position: absolute;
     bottom: 0;
-    width: 25%;
+    width: 16.25%;
 }
 button.new_game_button {
     position: absolute;
     bottom: 0;
-    width: 25%;
+    width: 16.25%;
 }
 button.left_side_button {
     float: left;
@@ -225,6 +188,5 @@ p.full_height_paragraph {
 }
 body {
     margin: 0;
-    text-shadow: white 0px 0px 20px;
     font-family: monospace;
 }
