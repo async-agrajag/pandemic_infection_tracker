@@ -2,6 +2,23 @@ const city_cards_filename = 'city_cards.js';
 const epoch_list = ['card_table_0','card_table_1','card_table_2','card_table_3','card_table_4','card_table_5','card_table_6','card_table_7'];
 var current_epoch_name = epoch_list[city_cards.current_epoch];
 
+/* LOADING JSON
+ document.getElementById('selectFiles').onchange = function() {
+ var files = document.getElementById('selectFiles').files;
+ if (files.length <= 0) {
+ return false;
+ }
+ 
+ var fr = new FileReader();
+ 
+ fr.onload = function(e) {
+ city_cards = JSON.parse(e.target.result);
+ }
+ 
+ fr.readAsText(files.item(0));
+ };
+ */
+
 function checkColor() {
     $('input[value="' + city_cards.selected_color +'"]').attr('checked', 'checked');
 }
