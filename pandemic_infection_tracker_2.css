@@ -17,7 +17,7 @@
     background-color: #a0a0a0;
     white-space: pre-wrap;
 }
-.active {
+    .active {
     background-color: green;
 }
 .card_column_master {
@@ -249,4 +249,3 @@ label.half_width_button {
     float: left;
     text-align: left;
 }
-

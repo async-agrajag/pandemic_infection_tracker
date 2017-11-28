@@ -183,11 +183,11 @@ class cardList {
             var cards_for_color = this.cards.filter(card => card.color == color_code);
             return cards_for_color.sort(function(a,b) {
                                         if (a.name < b.name) {
-                                        return -1
+                                            return -1
                                         } else if (b.name < a.name) {
-                                        return 1
+                                            return 1
                                         } else {
-                                        return 0
+                                            return 0
                                         }
                                         })
         };
@@ -277,11 +277,11 @@ class cityCard {
 }
 
 const infection_tracker = {
-master_list: new masterCardColumn('infection_tracker.master_list'),
-epoch_lists: new epochList('infection_tracker.epoch_lists'),
-forecast_list: new forecastCardColumn('infection_tracker.forecast_list'),
-modifier_list: ['None'],
-infection_rates: [2,2,2,3,3,4,4,5]
+    master_list: new masterCardColumn('infection_tracker.master_list'),
+    epoch_lists: new epochList('infection_tracker.epoch_lists'),
+    forecast_list: new forecastCardColumn('infection_tracker.forecast_list'),
+    modifier_list: ['None'],
+    infection_rates: [2,2,2,3,3,4,4,5]
 };
 
 
@@ -369,7 +369,7 @@ function newGame() {
 
 function newGameConfirmed() {
     infection_tracker.master_list.reset();
-    
+
     infection_tracker.epoch_lists = new epochList('infection_tracker.epoch_lists');
     infection_tracker.forecast_list = new forecastCardColumn('infection_tracker.forecast_list');
 };
@@ -413,4 +413,3 @@ function addCity(city_name) {
     infection_tracker.master_list.addCard(city_name);
     saved = false;
 };
-
