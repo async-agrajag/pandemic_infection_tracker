@@ -1,25 +1,24 @@
 const color_codes = ['blue', 'yellow', 'black', 'red']
 
-function epochList(hierarchy) {
-    this.hierarchy = hierarchy;
-    this.epochs = [new cardColumn(`${this.hierarchy}.epochs`, "card_list_epoch_0", "Pre-Epidemic\nInfection Rate: 2", "epoch_card_list", "card_column_epoch")];
+function epochList() {
+    this.epochs = [new cardColumn("card_list_epoch_0", "Pre-Epidemic\nInfection Rate: 2", "epoch_card_list", "card_column_epoch")];
     this.current_epoch = 0;
     this.addEpoch = function () {
         var epoch_count = this.epochs.length + 1;
-        var new_epoch = new cardColumn(`${this.hierarchy}.epochs[${epoch_count}]`, `card_list_epoch_${epoch_count}`, `Epidemic ${epoch_count}\nInfection Rate: ${infection_rates[epoch_count]}`, "card_column_epoch");
+        var new_epoch = new cardColumn(`card_list_epoch_${epoch_count}`, `Epidemic ${epoch_count}\nInfection Rate: ${infection_rates[epoch_count]}`, "card_column_epoch");
         this.epochs.push(new_epoch);
     };
-    this.setCardHierarchies = function () {
-        for (var index in this.epochs) {
-            this.epochs[index].setCardHierarchies();
+    this.blit = function (forecasting) {
+        if (forecasting == true) {
+            this.epoch_master_css_class = 'epoch_master narrow'
+        } else if (forecasting == false) {
+            this.epoch_master_css_class = 'epoch_master wide'
         }
-    };
-    this.blit = function () {
         var modifier_key = $('#modifier_key');
         
         var new_div = document.createElement('div');
         new_div.setAttribute("id", 'epoch_master');
-        new_div.setAttribute("class", 'epoch_master');
+        new_div.setAttribute("class", this.epoch_master_css_class);
         $('#epoch_master').replaceWith(new_div);
         var epoch_list = $("<div>", {"id": 'epoch_list', "class": 'epoch_list'});
         $('#epoch_master').append(epoch_list);
@@ -44,12 +43,11 @@ function epochList(hierarchy) {
     };
 }
 class cardColumn {
-    constructor(hierarchy, column_id, list_identifier_text, list_css_class, column_css_class) {
-        this.hierarchy = hierarchy;
+    constructor(column_id, list_identifier_text, list_css_class, column_css_class) {
         this.column_id = column_id;
         this.column_css_class = column_css_class || column_id;
-        this.list_identifier = new listIdentifier(`${this.hierarchy}.list_identifier`, column_id, list_identifier_text);
-        this.list = new cardList(`${this.hierarchy}.list`, column_id, list_css_class);
+        this.list_identifier = new listIdentifier(column_id, list_identifier_text);
+        this.list = new cardList(column_id, list_css_class);
         this.blit = function (active) {
             var new_div = document.createElement('div');
             new_div.setAttribute("id", this.column_id);
@@ -62,14 +60,11 @@ class cardColumn {
             this.list.addCard(card);
             this.blit();
         };
-        this.setCardHierarchies = function () {
-            this.list.setCardHierarchies();
-        };
     }
 }
 class masterCardColumn extends cardColumn {
-    constructor(hierarchy) {
-        super(hierarchy, "card_column_master", "Full Deck", "card_list_master");
+    constructor() {
+        super("card_column_master", "Full Deck", "card_list_master");
         this.selected_color = 0;
         this.reset = function () {
             
@@ -95,14 +90,13 @@ class masterCardColumn extends cardColumn {
             } else {
                 this.list.addCard(new cityCard(city_name, this.selected_color));
             }
-            this.list.setCardHierarchies();
             this.blit();
         };
     }
 }
 class forecastCardColumn extends cardColumn {
-    constructor(hierarchy) {
-        super(hierarchy, "card_column_forecast", "Forecast Deck", "card_list_forecast");
+    constructor() {
+        super("card_column_forecast", "Forecast Deck", "card_list_forecast");
         this.forecasting = false;
         this.forecast_list_set = false;
         this.blit = function () {
@@ -134,8 +128,7 @@ class forecastCardColumn extends cardColumn {
     }
 }
 class listIdentifier {
-    constructor(hierarchy, column_id, list_identifier_text) {
-        this.hierarchy = hierarchy;
+    constructor(column_id, list_identifier_text) {
         this.column_id = column_id;
         this.list_identifier_text = list_identifier_text;
         this.blit = function (active) {
@@ -153,8 +146,7 @@ class listIdentifier {
     }
 }
 class cardList {
-    constructor(hierarchy, column_id, list_css_class) {
-        this.hierarchy = hierarchy;
+    constructor(column_id, list_css_class) {
         this.column_id = column_id;
         this.list_css_class = list_css_class;
         this.cards = [];
@@ -174,11 +166,6 @@ class cardList {
         this.addCard = function (card) {
             this.cards.push(card);
         };
-        this.setCardHierarchies = function () {
-            for (var index in this.cards) {
-                this.cards[index].setHierarchy(`${this.hierarchy}.cards[${index}]`);
-            }
-        }
         this.sortedCardsForColor = function (color_code) {
             var cards_for_color = this.cards.filter(card => card.color == color_code);
             return cards_for_color.sort(function(a,b) {
@@ -191,20 +178,28 @@ class cardList {
                                         }
                                         })
         };
-        this.blitCardVersions = function(list_div, card_name, card_css_class, version_array) {
+        this.blitCardVersions = function(card, list_div, card_name, card_css_class, version_array) {
             var card_div = $("<div>", {"class": card_css_class});
             var text_div = $("<div>", {"class": 'card_text', "text": card_name});
             var edit_div = $("<div>", {"class": 'edit_card'});
             var edit_anchor = $("<a>", {"text": 'edit'});
             var version_counts_div = $("<div>", {"class": 'card_version_counts'});
             var index = 0;
-            for (var property in version_array) {
-                if (version_array.hasOwnProperty(property)) {
-                    var count = version_array[property];
+            for (var version in version_array) {
+                if (version_array.hasOwnProperty(version)) {
+                    var count = version_array[version];
                     var version_div = $("<div>", {"class": `card_version_${index}`});
                     var version_draw_button_div = $("<div>", {"class": 'version_draw_button'});
-                    var version_draw_button = $("<button>", {"class": 'full_size_button', "text": property});
+                    var version_draw_button = $("<button>", {"class": 'full_size_button', "text": version});
                     var version_count_div = $("<div>", {"class": 'version_count'});
+                    
+                    version_draw_button.on('click', function () {
+                                           version_draw_button.trigger( "drawCity", [ version ] );
+                                           });
+                    
+                    version_draw_button.on( "drawCity", function( event, version ) {
+                                           card.drawCity(version)});
+                    
                     version_counts_div.append(version_div);
                     version_div.append(version_draw_button_div);
                     version_draw_button_div.append(version_draw_button);
@@ -234,7 +229,7 @@ class cardList {
                     var card = all_cards[color_index][index];
                     if (Object.keys(card.enabled).length > 0) {
                         var card_css_class = `city_card ${color_codes[card.color]}`
-                        this.blitCardVersions(list_div, card.name, card_css_class, card.enabled);
+                        this.blitCardVersions(card, list_div, card.name, card_css_class, card.enabled);
                     }
                 }
             }
@@ -243,7 +238,7 @@ class cardList {
                     var card = all_cards[color_index][index];
                     if (Object.keys(card.disabled).length > 0) {
                         var card_css_class = `city_card ${color_codes[card.color]} drawn`
-                        this.blitCardVersions(list_div, card.name, card_css_class, card.disabled);
+                        this.blitCardVersions(card, list_div, card.name, card_css_class, card.disabled);
                     }
                 }
             }
@@ -252,7 +247,6 @@ class cardList {
 }
 class cityCard {
     constructor(name, color) {
-        this.hierarchy = '';
         this.name = name;
         this.color = color;
         this.enabled = {
@@ -260,17 +254,15 @@ class cityCard {
         };
         this.disabled = {
         };
-        this.setHierarchy = function (hierarchy) {
-            this.hierarchy = hierarchy;
-        };
         this.drawCity = function (version) {
+            console.log(infection_tracker);
             this.enabled[version] -= 1;
             this.disabled[version] = this.disabled[version] || 0;
             this.disabled[version] += 1;
             if (infection_tracker.forecast_list.forecasting) {
                 infection_tracker.forecast_list.drawTo(this, version);
             } else {
-                infection_tracker.epochList.drawTo(this, version);
+                infection_tracker.epoch_lists.drawTo(this, version);
             }
         };
     }
@@ -357,7 +349,7 @@ function prepPageElements() {
     
     infection_tracker.master_list.blit();
     infection_tracker.forecast_list.blit();
-    infection_tracker.epoch_lists.blit();
+    infection_tracker.epoch_lists.blit(infection_tracker.forecast_list.forecasting);
 };
 
 function newGame() {
@@ -376,10 +368,12 @@ function newGameConfirmed() {
 
 function startForecasting() {
     infection_tracker.forecast_list.startForecasting();
+    infection_tracker.epoch_lists.blit(infection_tracker.forecast_list.forecasting);
 }
 
 function stopForecasting() {
     infection_tracker.forecast_list.stopForecasting();
+    infection_tracker.epoch_lists.blit(infection_tracker.forecast_list.forecasting);
 }
 
 function previousEpoch() {
