@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en" ng-app="pandemicInfectionTrackerApp">
+    <head>
+        <meta charset="utf-8">
+            <title>Pandemic Infection Tracker</title>
+            <!--link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" /-->
+            <link rel="stylesheet" href="app.css" />
+            
+            <script src="bower_components/jquery/dist/jquery.js"></script>
+            <script src="bower_components/angular/angular.js"></script>
+            <script src="app.js"></script>
+            </head>
+    <body ng-controller="infectionController as c">
+        <div id="card_column_master" class="card_column_master">
+            <div class="epoch_identifier identifier_text_1_line">Full Deck</div>
+            <div class="card_list_master">
+                <div ng-repeat="card in card_lists.master | orderBy: ['color', 'name'] | filter:availableFilter">
+                    <div class="city_card {{card.color}}">
+                        <div class="card_text">{{card.name}}</div>
+                        <div class="edit_card"><a ng-click="editCard('master', card.color, card.name)">edit</a></div>
+                        <div class="card_version_counts">
+                            <div ng-repeat="(version, count) in card.available_versions" class="card_version_{{$index}}">
+                                <div class="version_draw_button">
+                                    <button class="full_size_button"  ng-disabled="forecasting && forecast_list_set" ng-click="drawCard('master', card.color, card.name, version)">{{version}}</button>
+                                </div>
+                                <div class="version_count">&nbsp;x{{count}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-repeat="card in card_lists.master | orderBy: ['color', 'name'] | filter:drawnFilter">
+                    <div class="city_card {{card.color}} drawn">
+                        <div class="card_text">{{card.name}} (drawn)</div>
+                        <div class="edit_card"><a ng-click="editCard('master', card.color, card.name)">edit</a></div>
+                        <div class="card_version_counts">
+                            <div ng-repeat="(version, count) in card.drawn_versions" class="card_version_{{$index}}">
+                                <div class="version_draw_button">
+                                    <button class="full_size_button">{{version}}</button>
+                                </div>
+                                <div class="version_count">&nbsp;x{{count}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="control" class="control">
+                <div class="card_attributes_container">
+                    <div class="card_attributes_formatter">
+                        City Name:&nbsp;<input type="text" ng-model="input_name" class="card_attributes_text_input"/>
+                    </div>
+                    <div class="card_attributes_formatter">
+                        &nbsp;&nbsp;&nbsp;Blue&nbsp;<input type="radio" ng-model="input_color" value="blue"/>&nbsp;<input type="radio"  ng-model="input_color" value="yellow"/>&nbsp;Yellow
+                    </div>
+                    <div class="card_attributes_formatter">
+                        &nbsp;&nbsp;Black&nbsp;<input type="radio"  ng-model="input_color" value="black"/>&nbsp;<input type="radio"  ng-model="input_color" value="red"/>&nbsp;Red&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="card_attributes_formatter">
+                        <button class="full_height_button" ng-click="addCard(input_color, input_name)">Add City</button>
+                    </div>
+                </div>
+                <div class="control_spacer"></div>
+                <div class="epoch_control_container">
+                    <button class="full_height_button" ng-disabled="current_epoch == 0" ng-click="current_epoch = current_epoch - 1">&lt;</button>&nbsp;Epidemic&nbsp;<button class="full_height_button" ng-click="current_epoch = current_epoch + 1; current_epoch == card_lists.epochs.length ? card_lists.epochs.push([]) : '';">&gt;</button>
+                </div>
+                <div class="forecast_control_container">
+                    <button class="full_size_button" ng-click="startForecasting()" ng-disabled="forecasting">Forecast</button>
+                </div>
+                <div class="control_spacer"></div>
+                <div class="control_spacer"></div>
+                <div class="control_spacer"></div>
+                <div class="data_control_container">
+                    <label for="save" class="half_width_button left">
+                        <div class="label_text">Save</div>
+                        <button id="save" style="display:none" ng-click="saveGame();"></button>
+                    </label>
+                    <label for="upload" class="half_width_button right">
+                        <div class="label_text">Load</div>
+                        <input type="file" ng-model="load_filename" id="upload" style="display:none" onchange="angular.element(this).scope().loadGame(this)"/>
+                    </label>
+                </div>
+                <div class="new_game_button_container">
+                    <button class="full_size_button" ng-click="startNewGame()">New Game</button>
+                </div>
+            </div>
+        </div>
+        <div id="epoch_master" class="epoch_master {{forecasting ? 'narrow' : 'wide'}}">
+            <div id="epoch_list" class="epoch_list">
+                <div ng-repeat="epoch in card_lists.epochs" class="card_column_epoch">{{infection_rate_index = ($index >= infection_rates.length ? infection_rates.length - 1 : $index);''}}
+                    <div class="epoch_identifier identifier_text_2_lines {{ $index == current_epoch ? ' active' : ''}}">{{ $index == 0 ? 'Pre-Epidemic' : 'Epidemic ' + $index}}<br>Infection Rate: {{infection_rates[infection_rate_index]}}</div>
+                    <div class="epoch_card_list">{{working_epoch = $index;""}}
+                        <div ng-repeat="card in card_lists.epochs[$index] | orderBy: ['color', 'name'] | filter:availableFilter">
+                            <div class="city_card {{card.color}}">
+                                <div class="card_text">{{card.name}}</div>
+                                <div class="edit_card"><a ng-click="editCard(working_epoch, card.color, card.name)">edit</a></div>
+                                <div class="card_version_counts">
+                                    <div ng-repeat="(version, count) in card.available_versions" class="card_version_{{$index}}">
+                                        <div class="version_draw_button">
+                                            <button class="full_size_button" ng-disabled="forecasting && forecast_list_set" ng-click="current_epoch == working_epoch ? undrawCard(working_epoch, card.color, card.name, version) : drawCard(working_epoch, card.color, card.name, version)">{{version}}</button>
+                                        </div>
+                                        <div class="version_count">&nbsp;x{{count}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-repeat="card in card_lists.epochs[$index] | orderBy: ['color', 'name'] | filter:drawnFilter">
+                            <div class="city_card {{card.color}} drawn">
+                                <div class="card_text">{{card.name}} (drawn)</div>
+                                <div class="edit_card"><a ng-click="editCard(working_epoch, card.color, card.name)">edit</a></div>
+                                <div class="card_version_counts">
+                                    <div ng-repeat="(version, count) in card.drawn_versions" class="card_version_{{$index}}">
+                                        <div class="version_draw_button">
+                                            <button class="full_size_button">{{version}}</button>
+                                        </div>
+                                        <div class="version_count">&nbsp;x{{count}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="modifier_key" class="modifier_key modifiers">
+                <div class="key_text"><a ng-click="editModifiers()">edit</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Modifier Key</br>Click on card to draw:</div>
+                <div class="{{forecasting ? 'modifier_descriptions_narrow' : 'modifier_descriptions_wide'}}">
+                    <div class="modifier_description" ng-repeat="value in modifier_list">
+                        <div class="description_draw_button">
+                            <button class="full_size_button">{{$index}}</button>
+                        </div>
+                        <div class="description_text">
+                            &nbsp;{{value}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="infection_rate_key" class="infection_rate_key infection_rates">
+                <div class="infection_rate_key_text"><a ng-click="editInfectionRates()">edit</a></br>Infection Rate Key</div>
+                <div class="{{forecasting ? 'infection_rates_narrow' : 'infection_rates_wide'}}">
+                    <div class="infection_rate_definition" ng-repeat="(index, infection_rate) in infection_rates track by index">
+                        <span class="infection_rate_identifier">{{index == 0 ? 'Pre' : index}}:</span>&nbsp;<span>{{infection_rate}},</span>
+                    </div><div class="infection_rate_definition">
+                        <span class="infection_rate_identifier">{{infection_rates.length}}...:</span>&nbsp;<span>{{infection_rates[infection_rates.length - 1]}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="card_column_forecast" class="card_column_forecast" ng-show="forecasting">
+            <div class="epoch_identifier identifier_text_1_line">Forecast Deck</div>
+            <div class="card_list_forecast">
+                <div ng-repeat="card in card_lists.forecast | filter:availableFilter">
+                    <div class="city_card {{card.color}}">{{card_index = $index;""}}
+                        <div class="card_text">{{card.name}}</div>
+                        <div class="forecast_position_button right">
+                            <button class="full_size_button" ng-click="moveForecastCardUp(card_index)" ng-disabled="card_index == 0 || forecast_list_drawn">↑</button>
+                        </div>
+                        <div class="card_version_counts">
+                            <div ng-repeat="(version, count) in card.available_versions" class="card_version_{{$index}}">
+                                <div class="version_draw_button">
+                                    <button class="full_size_button" ng-disabled="forecast_list_drawn"ng-click="undrawCardByIndex('forecast', card_index, version)">&lt;</button>
+                                </div>
+                                <div class="version_draw_button">
+                                    <button class="full_size_button" ng-disabled="forecast_list_set == false || card_index > 0" ng-click="drawCardByIndex('forecast', card_index, version)">{{version}}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forecast_position_button right">
+                            <button class="full_size_button" ng-click="moveForecastCardDown(card_index)" ng-disabled="card_index == card_lists.forecast.length - 1 || forecast_list_drawn">↓</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="stop_forecast_button_container" class="stop_forecast_button_container">
+                <button class="full_size_button" ng-click="stopForecasting()">Stop Forecasting</button>
+            </div>
+        </div>
+        <div class="edit_overlay"  ng-show="editing_card">
+            <div class="edit_window {{card_being_edited.color}}">
+                <div class="name_editing_formatter">
+                    Card Name: <input type="text" ng-model="card_being_edited.name"/>
+                </div>
+                <div class="color_editing_formatter">
+                    &nbsp;Blue&nbsp;<input type="radio" ng-model="card_being_edited.color" value="blue"/>&nbsp;Yellow&nbsp;<input type="radio"  ng-model="card_being_edited.color" value="yellow"/>
+                    &nbsp;&nbsp;Black&nbsp;<input type="radio"  ng-model="card_being_edited.color" value="black"/>&nbsp;&nbsp;&nbsp;&nbsp;Red&nbsp;<input type="radio"  ng-model="card_being_edited.color" value="red"/>
+                </div>
+                <div class="version_editing_text">
+                    Available Versions: Click to remove to versions
+                </div>
+                <div class="modifier_editing_formatter">
+                    <div class="card_version_counts">
+                        <div ng-repeat="(version, count) in card_being_edited.available_versions" class="card_version_{{$index}}">
+                            <div class="version_draw_button">
+                                <button class="full_size_button" ng-click="removeVersion('available_versions', version)">{{version}}</button>
+                            </div>
+                            <div class="version_count">&nbsp;x{{count}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="version_editing_text">
+                    Drawn Versions: Click to remove to versions
+                </div>
+                <div class="modifier_editing_formatter">
+                    <div class="card_version_counts">
+                        <div ng-repeat="(version, count) in card_being_edited.drawn_versions" class="card_version_{{$index}}">
+                            <div class="version_draw_button">
+                                <button class="full_size_button" ng-click="removeVersion('drawn_versions', version)">{{version}}</button>
+                            </div>
+                            <div class="version_count">&nbsp;x{{count}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="version_editing_text">
+                    Modifiers: Click to add to versions to:&nbsp;Available <input type="radio" ng-model="version_add_location" value="available_versions"/>&nbsp;Drawn <input type="radio" ng-model="version_add_location" value="drawn_versions"/>
+                </div>
+                <div class="modifier_editing_formatter">
+                    <div class="modifier_versions">
+                        <div class="modifier_description" ng-repeat="value in modifier_list">
+                            <div class="description_draw_button">
+                                <button class="full_size_button" ng-click="addVersion($index)">{{$index}}</button>
+                            </div>
+                            <div class="description_text">
+                                &nbsp;{{value}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="save_edits_button_container left">
+                    <button class="full_size_button" ng-click="finalizeEdits()">Save Edits</button>
+                </div>
+                <div class="save_edits_button_container right">
+                    <button class="full_size_button" ng-click="cancelEdits()">Cancel Edits</button>
+                </div>
+            </div>
+        </div>
+        <div class="edit_overlay"  ng-show="editing_modifiers">
+            <div class="edit_window modifiers">
+                <div class="version_editing_text">
+                    Modifier Name: <input class="modifier_name_input" type='text' ng-model='modifier_name'/><div class="add_modifier_button"><button class="full_size_button" ng-click="addModifierVersion(modifier_name)">Add Modifier</button></div>
+                </div>
+                <div class="version_editing_text">
+                    Modifiers:
+                </div>
+                <div class="modifier_editing_formatter">
+                    <div class="modifier_versions">
+                        <div class="modifier_description" ng-repeat="(i, value) in modifiers_being_edited track by i">
+                            <div class="description_draw_button">
+                                <button class="full_size_button">{{$index}}</button>
+                            </div>
+                            <input type='text' ng-model='modifiers_being_edited[$index]' class="description_text"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="save_edits_button_container left">
+                    <button class="full_size_button" ng-click="finalizeModifierEdits()">Save Edits</button>
+                </div>
+                <div class="save_edits_button_container right">
+                    <button class="full_size_button" ng-click="cancelEdits()">Cancel Edits</button>
+                </div>
+            </div>
+        </div>
+        <div class="edit_overlay"  ng-show="editing_infection_rates">
+            <div class="edit_window infection_rates">
+                <div class="infection_rate_edit_button left">
+                    <button class="full_size_button" ng-click="addInfectionRate()">Add Infection Rate</button>
+                </div>
+                <div class="infection_rate_edit_button right">
+                    <button class="full_size_button" ng-click="removeInfectionRate()">Remove Last Infection Rate</button>
+                </div>
+                <div class="infection_rate_editing_formatter">
+                    <div class="modifier_versions">
+                        <div class="infection_rate_definition" ng-repeat="(index, value) in infection_rates_being_edited track by [index, infection_rates_being_edited.length]">
+                            <span class="infection_rate_identifier">{{index == 0 ? 'Pre' : index}}:</span>&nbsp;<span><input type='text' ng-model='infection_rates_being_edited[index]' class="infection_rate_input_text"/></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="save_edits_button_container left">
+                    <button class="full_size_button" ng-click="finalizeInfectionRateEdits()">Save Edits</button>
+                </div>
+                <div class="save_edits_button_container right">
+                    <button class="full_size_button" ng-click="cancelEdits()">Cancel Edits</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
