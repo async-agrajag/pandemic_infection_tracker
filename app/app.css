@@ -1,0 +1,393 @@
+* {
+    margin: 0;
+    font-family: monospace;
+    font-size: 14px;
+}
+a {
+    font-weight: bold;
+}
+body {
+    overflow: hidden;
+}
+.identifier_text_1_line {
+    line-height: 40px;
+}
+.identifier_text_2_lines {
+    line-height: 20px;
+}
+.epoch_identifier {
+    font-weight: bold;
+    height: 40px;
+    width: 100%;
+    text-align: center;
+    background-color: #a0a0a0;
+    white-space: pre-wrap;
+}
+.active {
+    background-color: green;
+}
+.card_column_master {
+    width: 240px;
+    height: 100vh;
+    border-right: 4px solid gray;
+    border-right-style: groove;
+    overflow-y: hidden;
+    background-color: #a0a0a0;
+    float: left;
+    display: inline-block;
+}
+.card_list_master {
+    width: 100%;
+    height: calc(100vh - 240px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: grey;
+}
+.control {
+    padding: auto;
+    width: 100%;
+    height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #c0c0c0;
+}
+.card_attributes_container {
+    height: 50%;
+    width: 100%;
+}
+.card_attributes_formatter {
+    height: 25%;
+    width: 100%;
+    text-align: center;
+}
+.card_attributes_text_input {
+    width: 55%;
+}
+.epoch_control_container {
+    height: 12.5%;
+    width: 60%;
+    text-align: center;
+    float: left;
+}
+.forecast_control_container {
+    height: 12.5%;
+    width: 40%;
+    text-align: center;
+    float: right;
+}
+.control_spacer {
+    height: 6.25%;
+    width: 100%;
+}
+.data_control_container {
+    height: 12.5%;
+    width: 100%;
+}
+.label_text {
+    line-height: 22px;
+}
+label.half_width_button {
+    background-color: white;
+    text-align: center;
+    margin-top: 0.4%;
+    height: 91%;
+    margin-left: 0.25%;
+    width: 49.5%;
+}
+.new_game_button_container {
+    height: 12.5%;
+    width: 100%;
+}
+.full_size_button {
+    height: 100%;
+    width: 100%;
+    border-radius: 7px;
+}
+.half_width_button {
+    height: 100%;
+    width: 50%;
+    border-radius: 7px;
+}
+.full_height_button {
+    height: 100%;
+    border-radius: 7px;
+}
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+.card_column_forecast {
+    width: 240px;
+    height: 100vh;
+    border-left: 4px solid gray;
+    border-left-style: ridge;
+    overflow-x: hidden;
+    background-color: #a0a0a0;
+    float: right;
+}
+.card_list_forecast {
+    width: 100%;
+    height: calc(100vh - 60px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: grey;
+    float: right;
+}
+.invisible {
+    display: none;
+}
+.stop_forecast_button_container {
+    height: 20px;
+    width: 100%;
+}
+.epoch_master {
+    height: 100vh;
+    display: inline-block;
+}
+.narrow {
+    width: calc(100vw - 488px);
+}
+.wide {
+    width: calc(100vw - 244px);
+}
+.epoch_list {
+    height: calc(100vh - 120px);
+    overflow-x: auto;
+    overflow-y: hidden;
+    background-color: lightgrey;
+    white-space: nowrap;
+}
+.modifier_key {
+    height: 60px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+.infection_rate_key {
+    height: 60px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+.key_text {
+    padding-top: 10px;
+    float: left;
+    width: 200px;
+    display: inline-block;
+}
+.infection_rate_key_text {
+    padding-top: 10px;
+    float: left;
+    width: 165px;
+    display: inline-block;
+}
+.modifier_descriptions_narrow {
+    height: 100%;
+    width: calc(100vw - 688px);
+    padding-top: 5px;
+    overflow-x: auto;
+    display: inline-block;
+}
+.modifier_descriptions_wide {
+    height: 100%;
+    width: calc(100vw - 444px);
+    padding-top: 5px;
+    overflow-x: auto;
+    display: inline-block;
+}
+.infection_rates_narrow {
+    height: 100%;
+    width: calc(100vw - 653px);
+    padding-top: 5px;
+    overflow-x: auto;
+    display: inline-block;
+}
+.infection_rates_wide {
+    height: 100%;
+    width: calc(100vw - 409px);
+    padding-top: 5px;
+    overflow-x: auto;
+    display: inline-block;
+}
+.infection_rate_identifier {
+    font-weight: bold;
+}
+.modifier_description {
+    margin-top: 10px;
+    height: 20px;
+    width: 150px;
+    display: inline-block;
+}
+.description_draw_button {
+    height: 20px;
+    width: 21px;
+    float: left;
+}
+.description_text {
+    height: 20px;
+    width: 110px;
+}
+.infection_rate_input_text {
+    height: 20px;
+    width: 15px;
+}
+.card_column_epoch {
+    width: 240px;
+    height: calc(100vh - 60px);
+    border-right: 2px solid black;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background-color: lightgrey;
+    display: inline-block;
+}
+.card_list_epoch {
+    width: 100%;
+    height: calc(100vh - 60px);
+}
+.city_card {
+    border-radius: 7px;
+    border-bottom: 1px solid black;
+    height: 40px;
+}
+.drawn {
+    opacity: 0.5
+}
+.blue {
+    color: black;
+    background-color: dodgerblue;
+}
+.red {
+    color: black;
+    background-color: #C22222;
+}
+.yellow {
+    color: black;
+    background-color: #EFC700;
+}
+.black {
+    color: white;
+    background-color: #4F4F4F;
+}
+.modifiers {
+    color: black;
+    background-color: gray;
+}
+.infection_rates {
+    color: black;
+    background-color: darkgray;
+}
+.infection_rate_definition {
+    margin-left: 5px;
+    display: inline-block;
+}
+.card_text {
+    margin-left: 5%;
+    width: 75%;
+    height: 50%;
+    float: left;
+    text-align: left;
+}
+.edit_card {
+    width: 20%;
+    height: 50%;
+    float: right;
+}
+.card_version_counts {
+    width: 100%;
+    float: bottom;
+}
+.card_version_0 {
+    float: left;
+    width: 33.3333%;
+}
+.card_version_1 {
+    float: left;
+    width: 33.3333%;
+}
+.card_version_2 {
+    float: right;
+    width: 33.3333%;
+}
+.version_draw_button {
+    height: 20px;
+    width: 21px;
+    float: left;
+}
+.version_count {
+    height: 50%;
+    width: 50%;
+    float: left;
+    text-align: left;
+}
+.edit_overlay {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0, 0.5);
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+}
+.edit_window {
+    width: 50vw;
+    position: fixed;
+    z-index: 1;
+    left: 25vw;
+    top: 25vh;
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 10px;
+}
+.color_editing_formatter {
+    width: 600px;
+    height: 20px;
+    text-align: center;
+    display: inline;
+    white-space: nowrap;
+}
+.name_editing_formatter {
+    width: 600px;
+    height: 20px;
+    display: inline;
+    white-space: nowrap;
+    margin-left: 10px;
+}
+.modifier_editing_formatter {
+    width: 100%;
+    height: 60px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+.infection_rate_editing_formatter {
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+.save_edits_button_container {
+    width: 50%;
+    height: 20px;
+}
+.infection_rate_edit_button {
+    width: 50%;
+    height: 20px;
+}
+.version_editing_text {
+    width: 100%;
+}
+.modifier_name_input {
+    width: calc(50vw - 275px);
+}
+.add_modifier_button {
+    width: 125px;
+    float: right;
+}
+.forecast_position_button {
+    height: 20px;
+    width: 21px;
+}
