@@ -150,7 +150,7 @@ label.half_width_button {
     width: calc(100vw - 488px);
 }
 .wide {
-    width: calc(100vw - 244px);
+    width: calc(100w - 244px);
 }
 .epoch_list {
     height: calc(100vh - 120px);
@@ -158,6 +158,10 @@ label.half_width_button {
     overflow-y: hidden;
     background-color: lightgrey;
     white-space: nowrap;
+}
+.epoch_card_list {
+    height: calc(100vh - 160px);
+    overflow-y: auto;
 }
 .modifier_key {
     height: 60px;
