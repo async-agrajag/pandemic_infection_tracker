@@ -160,7 +160,7 @@ label.half_width_button {
     white-space: nowrap;
 }
 .epoch_card_list {
-    height: calc(100vh - 160px);
+    height: calc(100vh - 175px);
     overflow-y: auto;
 }
 .modifier_key {
