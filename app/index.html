@@ -11,7 +11,7 @@
             <script src="app.js"></script>
             </head>
     <body ng-controller="infectionController as c">
-        <div class="menu_overlay">&#x2623;<br/>&#x2623;<br/>&#x2623;</div>
+        <div class="menu_button" ng-click="openMenu()">&#x2623;<br/>&#x2623;<br/>&#x2623;</div>
         <div id="card_column_master" class="card_column_master">
             <div class="epoch_identifier identifier_text_1_line">Full Deck</div>
             <div class="card_list_master">
@@ -278,6 +278,11 @@
                 <div class="save_edits_button_container right">
                     <button class="full_size_button" ng-click="cancelEdits()">Cancel Edits</button>
                 </div>
+            </div>
+        </div>
+        <div class="edit_overlay"  ng-show="menu_open" ng-click="closeMenu()">
+            <div class="menu_window menu" ng-click="$event.stopPropagation()">
+                <p class="header">Instruction Manual</p>
             </div>
         </div>
     </body>

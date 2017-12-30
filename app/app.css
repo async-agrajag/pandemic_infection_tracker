@@ -1,3 +1,6 @@
+:root {
+    --menu_color: rgb(255,144,0);
+}
 * {
     margin: 0;
     font-family: monospace;
@@ -334,10 +337,11 @@ label.half_width_button {
     left: 0;
     top: 0;
 }
-.menu_overlay {
+.menu_button {
     width: 40px;
-    height: 40px;
-    background-color: rgb(255,144,0);
+    height: 38px;
+    padding-top: 2px;
+    background-color: var(--menu_color);
     font-size: 9px;
     line-height: 13px;
     text-align: center;
@@ -346,12 +350,31 @@ label.half_width_button {
     left: calc(100vw - 40px);
     top: 0;
 }
+.menu {
+    background-color: var(--menu_color);
+}
+.header {
+    font-weight: bold;
+    font-size: 20px;
+}
 .edit_window {
     width: 50vw;
     position: fixed;
     z-index: 1;
     left: 25vw;
-    top: 25vh;
+    top: 50vh;
+    transform: translateY(-50%);
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 10px;
+}
+.menu_window {
+    width: 90vw;
+    position: fixed;
+    z-index: 1;
+    left: 5vw;
+    top: 50vh;
+    transform: translateY(-50%);
     border-radius: 10px;
     border: 1px solid black;
     padding: 10px;

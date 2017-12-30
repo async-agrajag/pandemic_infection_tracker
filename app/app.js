@@ -127,6 +127,12 @@ function infectionController($scope) {
         $scope.forecast_list_set = false;
         $scope.forecast_list_drawn = false;
     }
+    $scope.openMenu = function () {
+        $scope.menu_open = true;
+    }
+    $scope.closeMenu = function () {
+        $scope.menu_open = false;
+    }
     $scope.editCard = function (card_column_id, card_color, card_name) {
         var card_column = null;
         switch (card_column_id) {
