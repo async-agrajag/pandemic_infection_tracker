@@ -150,7 +150,7 @@ label.half_width_button {
     width: calc(100vw - 488px);
 }
 .wide {
-    width: calc(100w - 244px);
+    width: calc(100vw - 244px);
 }
 .epoch_list {
     height: calc(100vh - 120px);
