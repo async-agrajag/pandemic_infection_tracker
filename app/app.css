@@ -334,6 +334,18 @@ label.half_width_button {
     left: 0;
     top: 0;
 }
+.menu_overlay {
+    width: 40px;
+    height: 40px;
+    background-color: rgb(255,144,0);
+    font-size: 9px;
+    line-height: 13px;
+    text-align: center;
+    position: fixed;
+    z-index: 1;
+    left: calc(100vw - 40px);
+    top: 0;
+}
 .edit_window {
     width: 50vw;
     position: fixed;
