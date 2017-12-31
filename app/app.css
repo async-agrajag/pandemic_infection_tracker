@@ -430,3 +430,19 @@ label.half_width_button {
     height: 20px;
     width: 21px;
 }
+.menu_tabs_container {
+    width: 100%;
+}
+.menu_tabs {
+	width: 95vw;
+	list-style: none;
+	padding-top: 20px;
+}
+.menu_tab {
+    margin-left: 10px;
+    margin-right: 10px;
+	display: inline;
+}
+.tab_selected {
+    font-weight: bold;
+}

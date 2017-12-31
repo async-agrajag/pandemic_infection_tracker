@@ -20,6 +20,8 @@ function infectionController($scope) {
     $scope.editing_card = false;
     $scope.editing_modifiers = false;
     $scope.editing_infection_rates = false;
+    $scope.menu_open = false;
+    $scope.tab_index = 0;
     $scope.card_being_edited = null;
     $scope.modifiers_being_edited = null;
     $scope.infection_rates_being_edited = null;

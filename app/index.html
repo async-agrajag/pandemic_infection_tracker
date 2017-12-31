@@ -282,7 +282,25 @@
         </div>
         <div class="edit_overlay"  ng-show="menu_open" ng-click="closeMenu()">
             <div class="menu_window menu" ng-click="$event.stopPropagation()">
-                <p class="header">Instruction Manual</p>
+                <p class="header">Instruction Manual</p><br/>
+                <div class="menu_tabs_container">
+                    <ul class="menu_tabs">
+                        <li class="menu_tab{{tab_index == 0 ? ' tab_selected' : ''}}" ng-click="tab_index = 0">X</li>
+                        <li class="menu_tab{{tab_index == 1 ? ' tab_selected' : ''}}" ng-click="tab_index = 1">Y</li>
+                        <li class="menu_tab{{tab_index == 2 ? ' tab_selected' : ''}}" ng-click="tab_index = 2">Z</li>
+                    </ul>
+                </div>
+                <div class="menu_tab_content">
+                        <div ng-show="tab_index == 0">
+                            Currently showing tab X
+                        </div>
+                        <div ng-show="tab_index == 1">
+                            Currently showing tab Y
+                        </div>
+                        <div ng-show="tab_index == 2">
+                            Currently showing tab Z
+                        </div>
+                </div>
             </div>
         </div>
     </body>
